@@ -14,21 +14,36 @@ solo:	sw $9, 0($8) #função para desenho
 	
 preparo_predio:   lui $8, 0x1001 #ponto inicial
 		  addi $9, $0, 0x545DD4 #cor do prédio
-		  addi $10, $0, 1280 #quantidade pixels prédio	880
 		  addi $11, $0, 0 #reset variável $11
-		  addi $8, $8, 19968 #ponto inicial prédio 	
+		  addi $8, $8, 20476 #ponto inicial prédio 
+		  addi $10, $0, 0 #reset variável $10
 
-predio:	sw $9, 0($8) 		
-	addi $8, $8, 4
+predio:	beq $10, 8, prep2
+	beq $12, 4, prep3
+	sw $9, 0($8) 		
+	addi $8, $8, 512
 	addi $11, $11, 1
-	beq $11, $10, prep
+	beq $11, 10, prep
 	j predio	
 
-prep:lui $8, 0x1001 #ponto inicial
-	  addi $8, $8, 25068 #ponto inicial prédio 
+prep:	  addi $8, $8, -5124 #ponto inicial prédio 
 	  addi $11, $0, 0 #reset variável $11
+	  addi $10, $10, 1 #reset variável $10
+	   addi $12, $12, 1 #reset variável $12
+	  j predio
 	  
+prep2:	  addi $8, $8, -5124 #ponto inicial prédio 
+	  addi $11, $0, 0 #reset variável $11
+	  addi $12, $0, 0 #reset variável $10
+	  addi $9, $0, 0x000000 #cor do espaco
+	  j predio	  
 	  
+prep3:	  addi $8, $8, -5124 #ponto inicial prédio 
+	  addi $11, $0, 0 #reset variável $11
+	  addi $12, $0, 0 #reset variável $10
+	  addi $9, $0, 0x545DD4 #cor do espaco
+	  j predio	
+	  	  
 prep_espaco:addi $9, $0, 0x000000 #cor do espaco
 	  addi $10, $0, 450 #quantidade pixels prédio	880
 	  addi $8, $8, -5068 #ponto inicial prédio 	
